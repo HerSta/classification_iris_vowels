@@ -4,6 +4,7 @@ import math
 import numpy as np
 from plot_confusion_matrix import plot_confusion_matrix
 from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.ticker import MaxNLocator
 
 import matplotlib.pyplot as plt
 plt.close('all')
@@ -55,15 +56,16 @@ def generate_histograms_for_features_and_classes(x):
     fig = plt.figure()
     ax = fig.add_subplot(111,projection='3d')
     nbins = 20
-    #TODO: add fucking correct color to the legends
-
     for i in range(C):
         data = x[50*i:50*(i+1)]
         for j,c in zip(range(features), ['#AD2A1A','g','b','#3C6478']):
             hist, bins = np.histogram(data[:,j],bins=nbins)
             xs = (bins[:-1] + bins[1:]) / 2.0 
-            l1 = ax.bar(xs,hist, zs = i , zdir='y', width=0.1,color=c, ec=c,alpha=0.8)
-            ax.legend((l1),('a','b','c'), loc='upper right', shadow=True)
+            l1 = ax.bar(xs,hist, zs = i+1 , zdir='y', width=0.1,color=c, ec=c,alpha=0.8)
+            ax.legend(('f1','f2','f3','f4'), loc='upper right', shadow=True)
+    ax.set_ylabel('Class')
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
     plt.show()
 
             
