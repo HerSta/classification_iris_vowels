@@ -3,11 +3,14 @@ import numpy as np
 from plot_confusion_matrix import plot_confusion_matrix
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.ticker import MaxNLocator
-
 import matplotlib.pyplot as plt
 plt.close('all')
 
-features = 4
+
+#In our dataset we have 4 features. A "1" indicate that the corresponding feature will be used. 0 and the feature will be ignored. Prior analysis shows that the order of the features in descending order of overlap is:
+#f2, f1, f4, f3
+used_features = [0,0,1,0]
+features = sum(used_features) 
 C = 3
 N = 50
 split_at = 30
@@ -81,6 +84,9 @@ def read_data(split_at,first=True):
     xs = x1 + x2 +x3
     for i in range(len(xs)):
         xs[i] = xs[i].split(',')
+        del xs[i][3]
+        del xs[i][1]
+        del xs[i][0]
     x = np.zeros((split_at*C,features + 1))
     ones = np.ones(split_at*C)
     x[:,features] = ones
@@ -89,6 +95,9 @@ def read_data(split_at,first=True):
     ts = t1 + t2 + t3
     for i in range(len(ts)):
         ts[i] = ts[i].split(',')
+        del ts[i][3]
+        del ts[i][1]
+        del ts[i][0]
     t = np.zeros((len(ts),features + 1))
     ones = np.ones(len(ts))
     t[:,features] = ones
