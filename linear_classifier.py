@@ -12,24 +12,37 @@ def main():
     ndim = 4
     N = 30 #entire training set
 
-    x = readData(N);
+    x,t = readData(N);
 
     w = calculateWeights(number_of_times_to_train, N, nclasses, x) 
-    
-    #flower1 = 1, flower2 = 2 ...
-    y_true = [1]*30 + [2]*30 + [3]*30
-    #the predicted values are those closest to 1 (i think)
-    y = [0]*90
-    y_pred = y
-    for i in range(N*nclasses):
-        y[i] = np.matmul(w,x[i,:])
-        print(y[i])
-        y_pred[i] = find_nearest_ret_idx(sigmoid(y[i]), 1) +1
-    print(y_pred)
-    print(y_true)
+  
     class_names = ['setosa','versicolor','virginica']
-    plot_confusion_matrix(y_true,y_pred,class_names)
+    gen_conf_d(N,w,x,class_names)
+    gen_conf_t(20,w,t,class_names)
+
+    plt.rcParams.update({'font.size': 52})
     plt.show()
+
+def gen_conf_d(N,w,x,class_names):
+    nclasses = 3
+    y_true_d = [1]*30 + [2]*30 + [3]*30
+    y_d = [0]*90
+    y_pred_d = y_d
+    for i in range(N*nclasses):
+        y_d[i] = np.matmul(w,x[i,:])
+        y_pred_d[i] = find_nearest_ret_idx(sigmoid(y_d[i]), 1) +1
+    plot_confusion_matrix(y_true_d,y_pred_d,class_names)
+
+def gen_conf_t(N,w,t,class_names):
+    nclasses = 3
+    y_true_d = [1]*20 + [2]*20 + [3]*20
+    y_d = [0]*60
+    y_pred_d = y_d
+    for i in range(N*nclasses):
+        y_d[i] = np.matmul(w,t[i,:])
+        y_pred_d[i] = find_nearest_ret_idx(sigmoid(y_d[i]), 1) +1
+    plot_confusion_matrix(y_true_d,y_pred_d,class_names)
+
 
 def find_nearest_ret_idx(array, value):
     array = np.asarray(array)
@@ -44,12 +57,12 @@ def readData(N):
     c1 = open("Iris_TTT4275/class_1",'r').read().split('\n')
     c2 = open("Iris_TTT4275/class_2",'r').read().split('\n')
     c3 = open("Iris_TTT4275/class_3",'r').read().split('\n')
-    x1 = c1[:30]
-    t1 = c1[30:]
-    x2 = c2[:30]
-    t2 = c2[30:]
-    x3 = c3[:30]
-    t3 = c3[30:]
+    x1 = c1[20:50]
+    t1 = c1[:20]
+    x2 = c2[20:50]
+    t2 = c2[:20]
+    x3 = c3[20:50]
+    t3 = c3[:20]
         
     #x1 = a1,b1,c1,d1
     #   = a2,c2,c2,d2
@@ -60,7 +73,16 @@ def readData(N):
     ones = np.ones(N*nclasses)
     x[:,4] = ones
     x[:,0:ndim] = xs
-    return x
+
+    ts = t1 + t2 + t3
+    for i in range(len(ts)):
+        ts[i] = ts[i].split(',')
+    t = np.zeros((20*nclasses,ndim + 1))
+    ones = np.ones(20*nclasses)
+    t[:,4] = ones
+    t[:,0:ndim] = ts
+    
+    return x,t
 
 def calculateWeights(number_of_times_to_train, N, nclasses, x):
     alpha = 0.04 #training speed parameter set by us
@@ -89,7 +111,6 @@ def calculateWeights(number_of_times_to_train, N, nclasses, x):
             
             MSE_grad_w += MSE_grad_w_k
         W_curr = W_prev - alpha * MSE_grad_w
-        print(W_curr)
         W_prev = W_curr
 
     print("Final weights: ")
