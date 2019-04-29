@@ -1,0 +1,8 @@
+class_covs = zeros(12,3,3);
+class_targets
+for i = 1:12
+    class_covs(i,:,:) = cov(squeeze(peak_data(i,:,1:70)).');
+end
+for i = 1:12
+    
+end
