@@ -1,3 +1,6 @@
 %confusions
-[c,cm,ind,per] = confusion(gentarget(peak_data),genoutputs(peak_data));
-[cb,cmb,indb,perb] = confusion(gentarget(peak_data),genbadoutput(peak_data));
+targets = gentarget(peak_data);
+outputs = genoutputs(peak_data);
+[c,cm,ind,per] = confusion(targets,outputs);
+plotconfusion(targets,outputs,'Wovel classification with features f1, f2, f3');
+[cb,cmb,indb,perb] = confusion(targets,genbadoutput(peak_data));
