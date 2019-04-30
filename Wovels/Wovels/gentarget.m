@@ -1,7 +1,7 @@
-function res = gentarget(peak_data)
+function res = gentarget(peak_data,half)
     next = 1;
     for i = 1:12
-        for j = 2:2:138
+        for j = (half+1):2:124
             if(peak_data(i,1,j))
                 targetcol = zeros(12,1);
                 targetcol(i,1) = 1;

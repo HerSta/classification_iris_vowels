@@ -35,7 +35,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     ax.set(xticks=np.arange(cm.shape[1]),
            yticks=np.arange(cm.shape[0]),
            # ... and label them with the respective list entries
-           xticklabels=[classes[0],classes[1],classes[2]], yticklabels=[classes[0],classes[1],classes[2]],
+           xticklabels=classes, yticklabels=classes,
            title=title,
            ylabel='True label',
            xlabel='Predicted label')
@@ -54,6 +54,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
                     color="white" if cm[i, j] > thresh else "black")
     fig.tight_layout()
     return ax
+
 # Plot normalized confusion matrix
 #plot_confusion_matrix(y_test, y_pred, classes=class_names, normalize=True,
                       #title='Normalized confusion matrix')
