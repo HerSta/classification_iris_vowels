@@ -1,9 +1,9 @@
 %confusions
 half = 1;
 good_len = 92;
-order = 1;
+order = 2;
 
-optimal = 8992;
+optimal = 8991;
 
 targets = gentarget(peak_data,half,good_len);
 outputs = genoutputs(peak_data,half,good_len);
@@ -18,7 +18,12 @@ for j = 1:15
     end
 end
 
-optimaloutput = genoutputs(pea)
+optimaloutput = genoutputs(test_F,half,good_len);
+toptimaloutput = genoutputs(test_F,~half,good_len);
+
+sub_opt_gmm_out = gmmoutputs(test_F,half,good_len,order);
+
+optimalc = confusion(targets,optimaloutput);
 
 %badoutputs = genbadoutput(peak_data,half,good_len);
 ttargets = gentarget(peak_data,~half,good_len);
@@ -27,10 +32,14 @@ tgmm_out = gmmoutputs(peak_data,~half,good_len,order);
 %tbadoutputs = genbadoutput(peak_data,~half,good_len);
 
 [c,cm,ind,per] = confusion(targets,outputs);
-plotconfusion(targets,gmm_out,'Wovel classification with features f1, f2, f3');
+plotconfusion(targets,sub_opt_gmm_out,'Wovel classification with features f1, f2, f3');
 [cb,cmb,indb,perb] = confusion(targets,badoutputs);
 [ct,cmt,indt,pert] = confusion(ttargets,toutputs);
 [cbt,cmbt,indbt,perbt] = confusion(ttargets,tbadoutputs);
 py_target = genplottarget(peak_data,half,good_len);
 %py_out = genplotoutputs(peak_data,half,good_len);
+cgmm = confusion(targets,gmm_out)
+cgmmo = confusion(targets,sub_opt_gmm_out)
+aopt = 1-confusion()
+
 
