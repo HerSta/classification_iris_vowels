@@ -18,7 +18,7 @@ def main():
     number_of_times_to_train = 5000
     x,t = read_data(split_at);
     #generate_histograms_for_features_and_classes(x)
-    w = calculateWeights(number_of_times_to_train, split_at, C, x) 
+    w = calculate_weights(number_of_times_to_train, split_at, C, x) 
   
     class_names = ['setosa','versicolor','virginica']
     gen_conf_matrix(w,x,class_names)
@@ -105,7 +105,7 @@ def read_data(split_at,first=True):
     
     return x,t
 
-def calculateWeights(number_of_times_to_train, split_at, C, x):
+def calculate_weights(number_of_times_to_train, split_at, C, x):
     alpha = 0.04 #training speed parameter set by us
     W_curr = np.zeros((C,features+1))
     W_prev = W_curr
