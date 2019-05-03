@@ -10,4 +10,3 @@ for i=1:length
         next(vowel_code(i))=next(vowel_code(i))+1; 
     end
 end
-
