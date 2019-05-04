@@ -6,8 +6,7 @@ optimal = 8991;
 
 targets = gentarget(peak_data,half,good_len);
 outputs = genoutputs(peak_data,half,good_len);
-gmm_out2 = gmmoutputs(peak_data,half,good_len,2);
-gmm_out3 = gmmoutputs(peak_data,half,good_len,3);
+
 
 next = 1;
 test_F = zeros(12,1,139);
@@ -20,6 +19,9 @@ end
 
 optimaloutput = genoutputs(test_F,half,good_len);
 toptimaloutput = genoutputs(test_F,~half,good_len);
+
+gmm_out2 = gmmoutputs(test_F,half,good_len,2);
+gmm_out3 = gmmoutputs(test_F,half,good_len,3);
 
 %sub_opt_gmm_out = gmmoutputs(test_F,half,good_len,order);
 
@@ -49,8 +51,8 @@ py_out = smartgenplot(outputs);
 py_out_t = smartgenplot(training_set_output);
 py_bad_out = smartgenplot(badoutputs);
 py_bad_out_t = smartgenplot(bad_training_set_output);
-%py_gmm2 = smartgenplot(gmm_out2);
-%py_gmm3 = smartgenplot(gmm_out3);
+py_gmm2 = smartgenplot(gmm_out2(1:12,:));
+py_gmm3 = smartgenplot(gmm_out3(1:12,:));
 
 save('py_out_data.mat','py_out');
 save('py_out_t_data.mat','py_out_t');
@@ -58,8 +60,8 @@ save('py_bad_out_data.mat','py_bad_out');
 save('py_bad_out_t_data.mat','py_bad_out_t');
 save('py_target1_data.mat','py_target1');
 save('py_target2_data.mat','py_target2');
-%save('py_gmm2_data.mat','py_gmm2');
-%save('py_gmm3_data.mat','py_gmm3');
+save('py_gmm2_data.mat','py_gmm2');
+save('py_gmm3_data.mat','py_gmm3');
 
 
 agmm2 = 1-confusion(targets,gmm_out2(1:12,:))
