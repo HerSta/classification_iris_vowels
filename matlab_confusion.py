@@ -3,9 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 import plot_confusion_matrix
-targets = scipy.io.loadmat('Wovels/Wovels/py_target1_data.mat')
-outs = scipy.io.loadmat('Wovels/Wovels/py_gmm2_data.mat')
-groups = scipy.io.loadmat('Wovels/Wovels/vowel_data.mat')
+targets = scipy.io.loadmat('Vowels/Vowels/py_target1_data.mat')
+outs = scipy.io.loadmat('Vowels/Vowels/py_gmm2_data.mat')
+groups = scipy.io.loadmat('Vowels/Vowels/vowel_data.mat')
 print(targets['py_target1'][0])
 print(outs['py_gmm2'][0])
 print(groups['vowel'])
