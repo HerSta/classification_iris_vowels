@@ -6,5 +6,3 @@ Training a Linear Classifier to classify the Iris Flower dataset. Analyzing feat
 
 Training single Gaussian class models and GMM models.
 
-TODO: 
-* add error rates
