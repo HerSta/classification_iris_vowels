@@ -6,6 +6,9 @@ optimal = 8991;
 
 targets = gentarget(peak_data,half,good_len);
 outputs = genoutputs(peak_data,half,good_len);
+gmm_out2 = gmmoutputs(peak_data,half,good_len,2);
+gmm_out3 = gmmoutputs(peak_data,half,good_len,3);
+
 
 
 next = 1;
@@ -18,7 +21,8 @@ for j = 1:15
 end
 
 optimaloutput = genoutputs(test_F,half,good_len);
-toptimaloutput = genoutputs(test_F,~half,good_len);
+optimal_output_training = gen_training_set_outputs(test_F,half,good_len);
+interchanged_optimal_output = genoutputs(test_F,~half,good_len);
 
 gmm_out2 = gmmoutputs(test_F,half,good_len,2);
 gmm_out3 = gmmoutputs(test_F,half,good_len,3);
@@ -68,9 +72,11 @@ agmm2 = 1-confusion(targets,gmm_out2(1:12,:))
 agmm2t = 1-confusion(targets,gmm_out2(13:24,:))
 agmm3 = 1-confusion(targets,gmm_out3(1:12,:))
 agmm3t = 1-confusion(targets,gmm_out3(13:24,:))
-%cgmmo = confusion(targets,sub_opt_gmm_out)
 
 accuracy_of_optimal_model = 1-confusion(targets,optimaloutput)
-accuracy_of_optimal_model_interchanged = 1-confusion(ttargets,toptimaloutput)
+accuracy_of_optimal_model_training = 1-confusion(ttargets,optimal_output_training)
+accuracy_of_optimal_model_interchanged = 1-confusion(ttargets,interchanged_optimal_output)
+
+accuracy_of_full_test = 1-confusion(ttargets,training_set_output)
 
 
